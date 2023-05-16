@@ -5,22 +5,21 @@ import { Restaurant } from '../restaurant/restaurant.model';
 
 @ObjectType()
 export class User {
+  @Field(() => ID, { nullable: false })
+  id!: number;
 
-    @Field(() => ID, {nullable:false})
-    id!: number;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: true })
+  name!: string | null;
 
-    @Field(() => String, {nullable:true})
-    name!: string | null;
+  @Field(() => String, { nullable: true })
+  password!: string | null;
 
-    @Field(() => String, {nullable:true})
-    password!: string | null;
+  @Field(() => String, { nullable: true })
+  plan!: string | null;
 
-    @Field(() => String, {nullable:true})
-    plan!: string | null;
-
-    @Field(() => Restaurant, {nullable:true})
-    restaurant?: Restaurant | null;
+  @Field(() => Restaurant, { nullable: true })
+  restaurant?: Restaurant | null;
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { UpdateUserInput } from './dto/update-user.input';
 
 import { User, Prisma } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
@@ -35,8 +34,11 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne({ email, id }: Prisma.UserWhereUniqueInput): Promise<User> {
+    const user = await this.prisma.user.findUnique({ where: { email, id } });
+    if (user) return user;
+
+    throw new Error('Usuário não encontrado');
   }
 
   async update(id: number, data: Prisma.UserUpdateInput): Promise<User> {
