@@ -1,0 +1,68 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Restaurant {
+  id: ID!
+  title: String!
+  banner: String
+  managerId: Int!
+  manager: User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+  password: String
+  plan: String
+  restaurant: Restaurant
+}
+
+type Query {
+  user(id: Int!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String
+  password: String
+  plan: String
+  restaurant: RestaurantCreateNestedOneWithoutManagerInput
+}
+
+input RestaurantCreateNestedOneWithoutManagerInput {
+  create: RestaurantCreateWithoutManagerInput
+  connectOrCreate: RestaurantCreateOrConnectWithoutManagerInput
+  connect: RestaurantWhereUniqueInput
+}
+
+input RestaurantCreateWithoutManagerInput {
+  title: String!
+  banner: String
+}
+
+input RestaurantCreateOrConnectWithoutManagerInput {
+  where: RestaurantWhereUniqueInput!
+  create: RestaurantCreateWithoutManagerInput!
+}
+
+input RestaurantWhereUniqueInput {
+  id: Int
+  managerId: Int
+}
+
+input UpdateUserInput {
+  email: String
+  name: String
+  password: String
+  plan: String
+  restaurant: RestaurantCreateNestedOneWithoutManagerInput
+  id: Int!
+}

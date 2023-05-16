@@ -5,6 +5,33 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    // for yarn monorepos
+    // provider = "prisma-nestjs-graphql"
+    output = "../src/@generated"
+}
+
+// generator graphql {
+//   provider = "graphql-schema-generator"
+//   createCRUD = "true"
+//   output = "../src/generated"
+// }
+
+// generator nestjsDto {
+//   provider                        = "prisma-generator-nestjs-dto"
+//   output                          = "../src/generated/nestjs-dto"
+//   outputToNestJsResourceStructure = "false"
+//   exportRelationModifierClasses   = "true"
+//   reExport                        = "false"
+//   createDtoPrefix                 = "Create"
+//   updateDtoPrefix                 = "Update"
+//   dtoSuffix                       = "Dto"
+//   entityPrefix                    = ""
+//   entitySuffix                    = ""
+//   fileNamingStyle                 = "camel"
+// }
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
