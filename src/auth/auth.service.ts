@@ -4,6 +4,7 @@ import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserResponse } from './dto/login-user-response';
+import { CreateUserInput } from 'src/user/dto/create-user.input';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,6 @@ export class AuthService {
           id: user.id,
           plan: user.plan,
         };
-        console.log(userResult);
         return userResult;
       } else {
         throw new UnauthorizedException();
@@ -43,5 +43,33 @@ export class AuthService {
         plan: user.plan,
       }),
     };
+  }
+
+  async signup(user: CreateUserInput) {
+    try {
+      const existsUser = await this.usersService.findOne({ email: user.email });
+
+      if (existsUser) {
+        throw new Error(`Email ${user.email} já cadastrado no sistema!`);
+      }
+
+      const hashPassword = await bcrypt.hash(user.password, 10);
+      user.password = hashPassword;
+
+      const newUser = await this.usersService.create(user);
+
+      if (newUser) {
+        return {
+          access_token: this.jwtService.sign({
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            plan: newUser.plan,
+          }),
+        };
+      }
+    } catch (error) {
+      return new Error(error.message);
+    }
   }
 }

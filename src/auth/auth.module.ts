@@ -23,7 +23,6 @@ import { PassportModule } from '@nestjs/passport';
   providers: [
     UserService,
     PrismaService,
-
     AuthService,
     AuthResolver,
     LocalStrategy,

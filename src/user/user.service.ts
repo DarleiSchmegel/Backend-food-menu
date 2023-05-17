@@ -36,9 +36,8 @@ export class UserService {
 
   async findOne({ email, id }: Prisma.UserWhereUniqueInput): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { email, id } });
-    if (user) return user;
 
-    throw new Error('Usuário não encontrado');
+    return user;
   }
 
   async update(id: number, data: Prisma.UserUpdateInput): Promise<User> {

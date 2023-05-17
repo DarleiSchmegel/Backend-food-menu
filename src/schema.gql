@@ -34,6 +34,7 @@ input FindUserInput {
 
 type Mutation {
   UserLogin(loginUserInput: LoginUserInput!): LoginUserResponse!
+  UserSignup(createUserInput: CreateUserInput!): LoginUserResponse!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
