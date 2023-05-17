@@ -19,14 +19,33 @@ type User {
   restaurant: Restaurant
 }
 
+type LoginUserResponse {
+  access_token: String!
+}
+
 type Query {
-  user(id: Int!): User!
+  user(findUserInput: FindUserInput!): User!
+}
+
+input FindUserInput {
+  id: Int
+  email: String
 }
 
 type Mutation {
+  UserLogin(loginUserInput: LoginUserInput!): LoginUserResponse!
+  UserSignup(createUserInput: CreateUserInput!): LoginUserResponse!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+}
+
+input LoginUserInput {
+  """Email of the inscribed"""
+  email: String!
+
+  """password of the user"""
+  password: String!
 }
 
 input CreateUserInput {

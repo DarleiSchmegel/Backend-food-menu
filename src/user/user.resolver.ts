@@ -4,6 +4,8 @@ import User from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 
+import { FindUserInput } from './dto/find-user.input';
+
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
@@ -19,8 +21,8 @@ export class UserResolver {
   }
 
   @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  findOne(@Args('findUserInput') findUserInput: FindUserInput) {
+    return this.userService.findOne(findUserInput);
   }
 
   @Mutation(() => User)
