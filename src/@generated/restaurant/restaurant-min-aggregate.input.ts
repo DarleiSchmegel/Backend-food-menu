@@ -14,5 +14,14 @@ export class RestaurantMinAggregateInput {
     banner?: true;
 
     @Field(() => Boolean, {nullable:true})
+    fone?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    address?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    openingHours?: true;
+
+    @Field(() => Boolean, {nullable:true})
     managerId?: true;
 }

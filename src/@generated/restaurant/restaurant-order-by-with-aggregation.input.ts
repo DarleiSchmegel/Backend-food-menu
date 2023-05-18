@@ -20,6 +20,15 @@ export class RestaurantOrderByWithAggregationInput {
     banner?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    fone?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    address?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    openingHours?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     managerId?: keyof typeof SortOrder;
 
     @Field(() => RestaurantCountOrderByAggregateInput, {nullable:true})

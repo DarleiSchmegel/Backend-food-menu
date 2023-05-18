@@ -14,6 +14,15 @@ export class RestaurantMinAggregate {
     @Field(() => String, {nullable:true})
     banner?: string;
 
+    @Field(() => String, {nullable:true})
+    fone?: string;
+
+    @Field(() => String, {nullable:true})
+    address?: string;
+
+    @Field(() => String, {nullable:true})
+    openingHours?: string;
+
     @Field(() => Int, {nullable:true})
     managerId?: number;
 }

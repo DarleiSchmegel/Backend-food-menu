@@ -19,6 +19,15 @@ export class RestaurantGroupBy {
     @Field(() => String, {nullable:true})
     banner?: string;
 
+    @Field(() => String, {nullable:true})
+    fone?: string;
+
+    @Field(() => String, {nullable:true})
+    address?: string;
+
+    @Field(() => String, {nullable:true})
+    openingHours?: string;
+
     @Field(() => Int, {nullable:false})
     managerId!: number;
 
