@@ -10,16 +10,18 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { RestaurantModule } from './restaurant/restaurant.module';
 
 @Module({
   imports: [
-    UserModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      include: [UserModule, AuthModule],
+      include: [UserModule, AuthModule, RestaurantModule],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    UserModule,
     AuthModule,
+    RestaurantModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,30 +7,31 @@ import { RestaurantRelationFilter } from '../restaurant/restaurant-relation-filt
 
 @InputType()
 export class UserWhereInput {
-  @Field(() => [UserWhereInput], { nullable: true })
-  AND?: Array<UserWhereInput>;
 
-  @Field(() => [UserWhereInput], { nullable: true })
-  OR?: Array<UserWhereInput>;
+    @Field(() => [UserWhereInput], {nullable:true})
+    AND?: Array<UserWhereInput>;
 
-  @Field(() => [UserWhereInput], { nullable: true })
-  NOT?: Array<UserWhereInput>;
+    @Field(() => [UserWhereInput], {nullable:true})
+    OR?: Array<UserWhereInput>;
 
-  @Field(() => IntFilter, { nullable: true })
-  id?: IntFilter;
+    @Field(() => [UserWhereInput], {nullable:true})
+    NOT?: Array<UserWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  email?: StringFilter;
+    @Field(() => IntFilter, {nullable:true})
+    id?: IntFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  name?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    email?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  password?: StringNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    name?: StringNullableFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  plan?: StringNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    password?: StringNullableFilter;
 
-  @Field(() => RestaurantRelationFilter, { nullable: true })
-  restaurant?: RestaurantRelationFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    plan?: StringNullableFilter;
+
+    @Field(() => RestaurantRelationFilter, {nullable:true})
+    restaurant?: RestaurantRelationFilter;
 }

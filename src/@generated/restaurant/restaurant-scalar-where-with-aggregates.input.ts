@@ -25,6 +25,15 @@ export class RestaurantScalarWhereWithAggregatesInput {
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     banner?: StringNullableWithAggregatesFilter;
 
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    fone?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    address?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    openingHours?: StringNullableWithAggregatesFilter;
+
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     managerId?: IntWithAggregatesFilter;
 }

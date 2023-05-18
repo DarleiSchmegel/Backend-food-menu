@@ -6,10 +6,10 @@ generator client {
 }
 
 generator nestgraphql {
-    provider = "node node_modules/prisma-nestjs-graphql"
-    // for yarn monorepos
-    // provider = "prisma-nestjs-graphql"
-    output = "../src/@generated"
+  provider = "node node_modules/prisma-nestjs-graphql"
+  // for yarn monorepos
+  // provider = "prisma-nestjs-graphql"
+  output   = "../src/@generated"
 }
 
 // generator graphql {
@@ -37,21 +37,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  password String?
-  plan String?
+  id         Int         @id @default(autoincrement())
+  email      String      @unique
+  name       String?
+  password   String?
+  plan       String?
   restaurant Restaurant?
 }
 
-
 model Restaurant {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  banner     String?
-  manager    User @relation(fields: [managerId], references: [id])
-  managerId  Int @unique
+  id           Int     @id @default(autoincrement())
+  title        String
+  banner       String?
+  fone         String?
+  address      String?
+  openingHours String?
+  manager      User    @relation(fields: [managerId], references: [id])
+  managerId    Int     @unique
+  menu         Menu?
+}
+
+model Menu {
+  id           Int         @id @default(autoincrement())
+  title        String
+  banner       String?
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  restaurantId Int         @unique
+  plateFood    PlateFood[]
+  category     Category[]
+}
+
+model PlateFood {
+  id          Int      @id @default(autoincrement())
+  title       String
+  ingredients String
+  setupTime   String
+  image       String?
+  menu        Menu     @relation(fields: [menuId], references: [id])
+  menuId      Int      @unique
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int      @unique
+}
+
+model Category {
+  id         Int         @id @default(autoincrement())
+  title      String
+  plateFoode PlateFood[]
+  menu       Menu        @relation(fields: [menuId], references: [id])
+  menuId     Int         @unique
 }

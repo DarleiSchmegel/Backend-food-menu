@@ -4,6 +4,7 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
+import { MenuRelationFilter } from '../menu/menu-relation-filter.input';
 
 @InputType()
 export class RestaurantWhereInput {
@@ -26,9 +27,21 @@ export class RestaurantWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     banner?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    fone?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    address?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    openingHours?: StringNullableFilter;
+
     @Field(() => IntFilter, {nullable:true})
     managerId?: IntFilter;
 
     @Field(() => UserRelationFilter, {nullable:true})
     manager?: UserRelationFilter;
+
+    @Field(() => MenuRelationFilter, {nullable:true})
+    menu?: MenuRelationFilter;
 }

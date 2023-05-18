@@ -15,6 +15,15 @@ export class RestaurantCountAggregate {
     banner!: number;
 
     @Field(() => Int, {nullable:false})
+    fone!: number;
+
+    @Field(() => Int, {nullable:false})
+    address!: number;
+
+    @Field(() => Int, {nullable:false})
+    openingHours!: number;
+
+    @Field(() => Int, {nullable:false})
     managerId!: number;
 
     @Field(() => Int, {nullable:false})

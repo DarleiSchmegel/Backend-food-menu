@@ -2,12 +2,57 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CategoryCount {
+  plateFoode: Int!
+}
+
+type Category {
+  id: ID!
+  title: String!
+  menuId: Int!
+  plateFoode: [PlateFood!]
+  menu: Menu!
+  _count: CategoryCount!
+}
+
+type PlateFood {
+  id: ID!
+  title: String!
+  ingredients: String!
+  setupTime: String!
+  image: String
+  menuId: Int!
+  categoryId: Int!
+  menu: Menu!
+  category: Category!
+}
+
+type MenuCount {
+  plateFood: Int!
+  category: Int!
+}
+
+type Menu {
+  id: ID!
+  title: String!
+  banner: String
+  restaurantId: Int!
+  restaurant: Restaurant!
+  plateFood: [PlateFood!]
+  category: [Category!]
+  _count: MenuCount!
+}
+
 type Restaurant {
   id: ID!
   title: String!
   banner: String
+  fone: String
+  address: String
+  openingHours: String
   managerId: Int!
   manager: User!
+  menu: Menu
 }
 
 type User {
@@ -24,6 +69,8 @@ type LoginUserResponse {
 }
 
 type Query {
+  restaurants: [Restaurant!]!
+  restaurant(id: Int!): Restaurant!
   user(findUserInput: FindUserInput!): User!
 }
 
@@ -33,11 +80,223 @@ input FindUserInput {
 }
 
 type Mutation {
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  updateRestaurant(updateRestaurantInput: UpdateRestaurantInput!): Restaurant!
+  removeRestaurant(id: Int!): Restaurant!
   UserLogin(loginUserInput: LoginUserInput!): LoginUserResponse!
   UserSignup(createUserInput: CreateUserInput!): LoginUserResponse!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+}
+
+input CreateRestaurantInput {
+  title: String!
+  banner: String
+  fone: String
+  address: String
+  openingHours: String
+  manager: UserCreateNestedOneWithoutRestaurantInput!
+  menu: MenuCreateNestedOneWithoutRestaurantInput
+}
+
+input UserCreateNestedOneWithoutRestaurantInput {
+  create: UserCreateWithoutRestaurantInput
+  connectOrCreate: UserCreateOrConnectWithoutRestaurantInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutRestaurantInput {
+  email: String!
+  name: String
+  password: String
+  plan: String
+}
+
+input UserCreateOrConnectWithoutRestaurantInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutRestaurantInput!
+}
+
+input UserWhereUniqueInput {
+  id: Int
+  email: String
+}
+
+input MenuCreateNestedOneWithoutRestaurantInput {
+  create: MenuCreateWithoutRestaurantInput
+  connectOrCreate: MenuCreateOrConnectWithoutRestaurantInput
+  connect: MenuWhereUniqueInput
+}
+
+input MenuCreateWithoutRestaurantInput {
+  title: String!
+  banner: String
+  plateFood: PlateFoodCreateNestedManyWithoutMenuInput
+  category: CategoryCreateNestedManyWithoutMenuInput
+}
+
+input PlateFoodCreateNestedManyWithoutMenuInput {
+  create: [PlateFoodCreateWithoutMenuInput!]
+  connectOrCreate: [PlateFoodCreateOrConnectWithoutMenuInput!]
+  connect: [PlateFoodWhereUniqueInput!]
+}
+
+input PlateFoodCreateWithoutMenuInput {
+  title: String!
+  ingredients: String!
+  setupTime: String!
+  image: String
+  category: CategoryCreateNestedOneWithoutPlateFoodeInput!
+}
+
+input CategoryCreateNestedOneWithoutPlateFoodeInput {
+  create: CategoryCreateWithoutPlateFoodeInput
+  connectOrCreate: CategoryCreateOrConnectWithoutPlateFoodeInput
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryCreateWithoutPlateFoodeInput {
+  title: String!
+  menu: MenuCreateNestedOneWithoutCategoryInput!
+}
+
+input MenuCreateNestedOneWithoutCategoryInput {
+  create: MenuCreateWithoutCategoryInput
+  connectOrCreate: MenuCreateOrConnectWithoutCategoryInput
+  connect: MenuWhereUniqueInput
+}
+
+input MenuCreateWithoutCategoryInput {
+  title: String!
+  banner: String
+  restaurant: RestaurantCreateNestedOneWithoutMenuInput!
+  plateFood: PlateFoodCreateNestedManyWithoutMenuInput
+}
+
+input RestaurantCreateNestedOneWithoutMenuInput {
+  create: RestaurantCreateWithoutMenuInput
+  connectOrCreate: RestaurantCreateOrConnectWithoutMenuInput
+  connect: RestaurantWhereUniqueInput
+}
+
+input RestaurantCreateWithoutMenuInput {
+  title: String!
+  banner: String
+  fone: String
+  address: String
+  openingHours: String
+  manager: UserCreateNestedOneWithoutRestaurantInput!
+}
+
+input RestaurantCreateOrConnectWithoutMenuInput {
+  where: RestaurantWhereUniqueInput!
+  create: RestaurantCreateWithoutMenuInput!
+}
+
+input RestaurantWhereUniqueInput {
+  id: Int
+  managerId: Int
+}
+
+input MenuCreateOrConnectWithoutCategoryInput {
+  where: MenuWhereUniqueInput!
+  create: MenuCreateWithoutCategoryInput!
+}
+
+input MenuWhereUniqueInput {
+  id: Int
+  restaurantId: Int
+}
+
+input CategoryCreateOrConnectWithoutPlateFoodeInput {
+  where: CategoryWhereUniqueInput!
+  create: CategoryCreateWithoutPlateFoodeInput!
+}
+
+input CategoryWhereUniqueInput {
+  id: Int
+  menuId: Int
+}
+
+input PlateFoodCreateOrConnectWithoutMenuInput {
+  where: PlateFoodWhereUniqueInput!
+  create: PlateFoodCreateWithoutMenuInput!
+}
+
+input PlateFoodWhereUniqueInput {
+  id: Int
+  menuId: Int
+  categoryId: Int
+}
+
+input CategoryCreateNestedManyWithoutMenuInput {
+  create: [CategoryCreateWithoutMenuInput!]
+  connectOrCreate: [CategoryCreateOrConnectWithoutMenuInput!]
+  connect: [CategoryWhereUniqueInput!]
+}
+
+input CategoryCreateWithoutMenuInput {
+  title: String!
+  plateFoode: PlateFoodCreateNestedManyWithoutCategoryInput
+}
+
+input PlateFoodCreateNestedManyWithoutCategoryInput {
+  create: [PlateFoodCreateWithoutCategoryInput!]
+  connectOrCreate: [PlateFoodCreateOrConnectWithoutCategoryInput!]
+  connect: [PlateFoodWhereUniqueInput!]
+}
+
+input PlateFoodCreateWithoutCategoryInput {
+  title: String!
+  ingredients: String!
+  setupTime: String!
+  image: String
+  menu: MenuCreateNestedOneWithoutPlateFoodInput!
+}
+
+input MenuCreateNestedOneWithoutPlateFoodInput {
+  create: MenuCreateWithoutPlateFoodInput
+  connectOrCreate: MenuCreateOrConnectWithoutPlateFoodInput
+  connect: MenuWhereUniqueInput
+}
+
+input MenuCreateWithoutPlateFoodInput {
+  title: String!
+  banner: String
+  restaurant: RestaurantCreateNestedOneWithoutMenuInput!
+  category: CategoryCreateNestedManyWithoutMenuInput
+}
+
+input MenuCreateOrConnectWithoutPlateFoodInput {
+  where: MenuWhereUniqueInput!
+  create: MenuCreateWithoutPlateFoodInput!
+}
+
+input PlateFoodCreateOrConnectWithoutCategoryInput {
+  where: PlateFoodWhereUniqueInput!
+  create: PlateFoodCreateWithoutCategoryInput!
+}
+
+input CategoryCreateOrConnectWithoutMenuInput {
+  where: CategoryWhereUniqueInput!
+  create: CategoryCreateWithoutMenuInput!
+}
+
+input MenuCreateOrConnectWithoutRestaurantInput {
+  where: MenuWhereUniqueInput!
+  create: MenuCreateWithoutRestaurantInput!
+}
+
+input UpdateRestaurantInput {
+  title: String
+  banner: String
+  fone: String
+  address: String
+  openingHours: String
+  manager: UserCreateNestedOneWithoutRestaurantInput
+  menu: MenuCreateNestedOneWithoutRestaurantInput
+  id: Int!
 }
 
 input LoginUserInput {
@@ -65,16 +324,15 @@ input RestaurantCreateNestedOneWithoutManagerInput {
 input RestaurantCreateWithoutManagerInput {
   title: String!
   banner: String
+  fone: String
+  address: String
+  openingHours: String
+  menu: MenuCreateNestedOneWithoutRestaurantInput
 }
 
 input RestaurantCreateOrConnectWithoutManagerInput {
   where: RestaurantWhereUniqueInput!
   create: RestaurantCreateWithoutManagerInput!
-}
-
-input RestaurantWhereUniqueInput {
-  id: Int
-  managerId: Int
 }
 
 input UpdateUserInput {

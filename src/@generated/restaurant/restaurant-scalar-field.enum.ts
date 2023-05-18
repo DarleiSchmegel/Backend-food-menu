@@ -4,6 +4,9 @@ export enum RestaurantScalarFieldEnum {
     id = "id",
     title = "title",
     banner = "banner",
+    fone = "fone",
+    address = "address",
+    openingHours = "openingHours",
     managerId = "managerId"
 }
 
